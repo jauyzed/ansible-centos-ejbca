@@ -3,10 +3,11 @@
         DocumentRoot /var/www/
 
         # Proxy requests to EJBCA instances (only one on local machine configured)
-        <Proxy balancer://mycluster-kerb>
-                BalancerMember ajp://localhost:8009/ejbca/
+        <Proxy "balancer://mycluster-kerb">
+                BalancerMember "ajp://localhost:8009/ejbca/"
         </Proxy>
         ProxyPass / balancer://mycluster-kerb/
+	ProxyPassReverse /   balancer://mycluster-kerb/
 
         RewriteEngine   On
         # Redirect all but the CRL Distribution Point, OCSP and Helthcheck to HTTPS
@@ -47,10 +48,11 @@
         </Location>
 
         # Proxy requests to EJBCA instances (only one on local machine configured)
-        <Proxy balancer://mycluster-kerb>
-                BalancerMember ajp://localhost:8009/ejbca/
+        <Proxy "balancer://mycluster-kerb">
+                BalancerMember "ajp://localhost:8009/ejbca/"
         </Proxy>
         ProxyPass / balancer://mycluster-kerb/
+	ProxyPassReverse /   balancer://mycluster-kerb/
 
         # Configure log
         LogLevel warn
